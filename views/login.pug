@@ -1,0 +1,24 @@
+extend layout.pug
+
+block content
+    div.container
+        div.page-header
+            h1.col-sm-6.col-sm-offset-5 Zaloguj się
+            br
+            form.login-form.form-horizontal(method='post', role='form')
+                input(name='_csrf', type='hidden', value=csrfToken)
+                div.form-group
+                    div.row
+                        div.col-sm-6.col-sm-offset-3  Login
+                            input.form-control(type="text",placeholder='login', id='login', name="login",required=true)
+                div.form-group
+                    div.row
+                        div.col-sm-6.col-sm-offset-3 Password
+                            input.form-control(type="password", placeholder='password', id='password', name="password",required=true)
+                div.form-group
+                    div.row
+                        div.col-sm-6.col-sm-offset-3
+                            button.login.btn.btn-primary(type='submit') Potwierdź
+                        div.col-sm-3.col-sm-offset-8
+                            a(href="/") Powrót do strony głównej
+
