@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));  //odkodowuje formularz
 
 
 app.get('/', function (req, res) {
-    res.render('login');
+    res.render('main');
 });
 app.get('/login', function (req, res) {
     res.render('login');

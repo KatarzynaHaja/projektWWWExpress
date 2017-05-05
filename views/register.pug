@@ -5,20 +5,33 @@ block content
         div.page-header
             h1.col-sm-6.col-sm-offset-5 Zarejestruj się
             br
-            form.login-form.form-horizontal(method='post', role='form')
-                input(name='_csrf', type='hidden', value=csrfToken)
-                div.form-group
-                    div.row
-                        div.col-sm-6.col-sm-offset-3  Login
-                            input.form-control(type="text",placeholder='login', id='login', name="login",required=true)
-                div.form-group
-                    div.row
-                        div.col-sm-6.col-sm-offset-3 Password
-                            input.form-control(type="password", placeholder='password', id='password', name="password",required=true)
-                div.form-group
-                    div.row
-                        div.col-sm-6.col-sm-offset-3
-                            button.login.btn.btn-primary(type='submit') Potwierdź
-                        div.col-sm-3.col-sm-offset-8
-                            a(href="/") Powrót do strony głównej
+            block form
+                form.login-form.form-horizontal(method='post', role='form')
+                    input(name='_csrf', type='hidden', value=csrfToken)
+                    div.form-group
+                        div.row
+                            div.col-sm-6.col-sm-offset-3  Login
+                                input.form-control(type="text",placeholder='login', id='login', name="login",required=true)
+                    div.form-group
+                        div.row
+                            div.col-sm-6.col-sm-offset-3 Hasło
+                                input.form-control(type="password", placeholder='password', id='password', name="password",required=true)
+                    div.form-group
+                        div.row
+                            div.col-sm-6.col-sm-offset-3  Powtórz Hasło
+                                input.form-control(type="password",placeholder='password', id='password2', name="password2",required=true)
+                    div.form-group
+                        div.row
+                            div.col-sm-6.col-sm-offset-3  E-mail
+                                input.form-control(type="text",placeholder='mail', id='mail', name="mail",required=true)
+                    div.form-group
+                        div.row
+                            div.col-sm-1.col-sm-offset-3 Akceptuje regulamin
+                                input.form-control(type="checkbox", required=true)
+                    div.form-group
+                        div.row
+                            div.col-sm-6.col-sm-offset-3
+                                button.login.btn.btn-primary(type='submit') Potwierdź
+                            div.col-sm-3.col-sm-offset-8
+                                a(href="/") Powrót do strony głównej
 
