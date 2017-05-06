@@ -1,9 +1,9 @@
 extend layout.pug
-
 block content
     div.container
         div.page-header
             h1.col-sm-6.col-sm-offset-5 Zarejestruj się
+            h1=error
             br
             block form
                 form.login-form.form-horizontal(method='post', role='form')

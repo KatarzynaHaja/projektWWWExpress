@@ -4,6 +4,7 @@ var http = require('http')
 var app = express();
 var logger = require("morgan");
 var path = require("path");
+var router = express.Router();
 var session = require('express-session')
 app.use(session({secret: 'ssshhhhh', resave: false,
     saveUninitialized: true}));
@@ -20,6 +21,7 @@ app.set("view engine", "pug");
 app.use(logger("dev"));   //midlewearstack
 app.set('view engine', 'pug')
 app.use(bodyParser.urlencoded({ extended: false }));  //odkodowuje formularz
+require('./routers/register.js')(app);
 
 
 app.get('/', function (req, res) {
@@ -31,30 +33,6 @@ app.get('/login', function (req, res) {
 app.post('/',function(req,res)
 {
     res.redirect('register');
-});
-app.post('/register',function(req,res)
-{
-   var username = req.body.login;
-   var password = req.body.password;
-    var insertDocument = function(db, callback) {
-        db.collection('users').insertOne({"username": username, "password":password},function(err, result) {
-            assert.equal(err, null);
-            callback();
-        });
-    };
-    MongoClient.connect(url, function(err, db) {
-        assert.equal(null, err);
-        insertDocument(db, function() {
-            db.close();
-        });
-    });
-
-    res.redirect('login');
-
-});
-
-app.get('/register', function (req, res) {
-    res.render('register');
 });
 
 http.createServer(app).listen(3000, function() {
