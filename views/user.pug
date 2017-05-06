@@ -2,4 +2,11 @@ extends layout
 block content
     div.col-sm-8.col-sm-offset-4
         h1 Strona użytkownika
+    block form
+        form.login-form.form-horizontal(method='post', role='form')
+            input(name='_csrf', type='hidden', value=csrfToken)
+            div.form-group
+                div.row
+                    div.col-sm-6.col-sm-offset-3
+                        button.login.btn.btn-primary(type='submit') Wyloguj się
 

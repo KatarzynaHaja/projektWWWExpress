@@ -29,13 +29,24 @@ app.get('/', function (req, res) {
     res.render('main');
 });
 app.get('/user', function (req, res) {
-    res.render('user');
+    if (req.session.role == undefined)
+    {
+        res.status(401).send("Nie jesteś zalogowany")
+    }
+    else
+    {
+        res.render('user');
+    }
+
 });
 
-app.post('/',function(req,res)
+app.post('/user',function(req,res)
 {
-    res.redirect('register');
+    delete req.session.username;
+    delete req.session.role;
+    res.redirect('/');
 });
+
 
 http.createServer(app).listen(3000, function() {
     console.log("Dziala");
