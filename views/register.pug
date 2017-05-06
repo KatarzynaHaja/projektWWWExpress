@@ -3,7 +3,6 @@ block content
     div.container
         div.page-header
             h1.col-sm-6.col-sm-offset-5 Zarejestruj się
-            h1=error
             br
             block form
                 form.login-form.form-horizontal(method='post', role='form')
@@ -32,6 +31,8 @@ block content
                         div.row
                             div.col-sm-6.col-sm-offset-3
                                 button.login.btn.btn-primary(type='submit') Potwierdź
+                            div.col-sm-2.col-sm-offset-5
+                                h5=error
                             div.col-sm-3.col-sm-offset-8
                                 a(href="/") Powrót do strony głównej
 

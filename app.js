@@ -22,14 +22,16 @@ app.use(logger("dev"));   //midlewearstack
 app.set('view engine', 'pug')
 app.use(bodyParser.urlencoded({ extended: false }));  //odkodowuje formularz
 require('./routers/register.js')(app);
+require('./routers/login.js')(app);
 
 
 app.get('/', function (req, res) {
     res.render('main');
 });
-app.get('/login', function (req, res) {
-    res.render('login');
+app.get('/user', function (req, res) {
+    res.render('user');
 });
+
 app.post('/',function(req,res)
 {
     res.redirect('register');
