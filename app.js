@@ -33,7 +33,22 @@ app.get('/product', function (req, res) {
     res.render('product');
 });
 app.get('/panel', function (req, res) {
-    res.render('panel');
+    if (req.session.role == undefined)
+    {
+        res.status(401).send("Nie jesteś zalogowany")
+    }
+    else
+    {
+        if(req.session.role =='user')
+        {
+            res.status(403).send("Nie masz uprawnień")
+        }
+        else
+        {
+            res.render('panel');
+        }
+    }
+
 });
 app.get('/user', function (req, res) {
     if (req.session.role == undefined)
