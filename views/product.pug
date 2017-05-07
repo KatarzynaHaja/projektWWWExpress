@@ -1,0 +1,29 @@
+extends layout
+block content
+    div.container
+        div.page-header
+            h1.col-sm-6.col-sm-offset-5 Dodaj produkt
+            br
+            form.login-form.form-horizontal(method='post', role='form', id='product')
+                input(name='_csrf', type='hidden', value=csrfToken)
+                div.form-group
+                    div.row
+                        div.col-sm-6.col-sm-offset-3  Nazwa produktu
+                            input.form-control(type="text",id='product_name', name="product_name",required=true)
+                div.form-group
+                    div.row
+                        div.col-sm-6.col-sm-offset-3  Nazwa produktu
+                            textarea.form-control(name="description", form='product',required=true)
+                div.form-group
+                    div.row
+                        div.col-sm-6.col-sm-offset-3 Dodaj plik
+                            input.form-control(type="file", id='file', name="file",required=true)
+                div.form-group
+                    div.row
+                        div.col-sm-6.col-sm-offset-3
+                            button.login.btn.btn-primary(type='submit') Potwierdź
+                        div.col-sm-2.col-sm-offset-5
+                            h5=error
+                        div.col-sm-3.col-sm-offset-8
+                            a(href="/user") Powrót do strony głównej
+

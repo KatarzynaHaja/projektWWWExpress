@@ -28,6 +28,13 @@ require('./routers/login.js')(app);
 app.get('/', function (req, res) {
     res.render('main');
 });
+
+app.get('/product', function (req, res) {
+    res.render('product');
+});
+app.get('/panel', function (req, res) {
+    res.render('panel');
+});
 app.get('/user', function (req, res) {
     if (req.session.role == undefined)
     {
@@ -35,7 +42,7 @@ app.get('/user', function (req, res) {
     }
     else
     {
-        res.render('user');
+        res.render('user',{variable:req.session.role});
     }
 
 });
@@ -45,6 +52,10 @@ app.post('/user',function(req,res)
     delete req.session.username;
     delete req.session.role;
     res.redirect('/');
+});
+
+app.use(function(req, res) {
+    res.status(404).render("404");
 });
 
 

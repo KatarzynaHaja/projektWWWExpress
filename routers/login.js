@@ -21,6 +21,7 @@ module.exports =function(app) {
                             console.log("Dobre hasło")
                             req.session.role = results[0]['role'];
                             req.session.username = results[0]['username'];
+                            console.log(req.session.role);
                             delete req.session.error;
                             res.redirect('/user');
                         }

@@ -1,0 +1,16 @@
+extends layout
+block content
+    div.container
+            h1.col-sm-6.col-sm-offset-3 Panel administratora
+                br
+                div.row
+                    div.col-sm-6.col-sm-offset-2
+                        button.login.btn.btn-primary(onclick="window.location.href='/product'") Dodaj produkt
+                div.row
+                    div.col-sm-6.col-sm-offset-2
+                        button.login.btn.btn-primary(onclick="window.location.href='/deleteUser'") Usuń użytkownika
+                div.row
+                    div.col-sm-6.col-sm-offset-2
+                        button.login.btn.btn-primary(onclick="window.location.href='/deleteUser'") Nadaj prawa administratora
+            div.col-sm-3.col-sm-offset-8
+                a(href="/user") Powrót do strony główne
