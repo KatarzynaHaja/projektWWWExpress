@@ -26,7 +26,8 @@ app.use(fileUpload());
 require('./routers/register.js')(app);
 require('./routers/login.js')(app);
 require('./routers/product.js')(app);
-
+require('./routers/deleteuser.js')(app);
+require('./routers/addrights.js')(app);
 
 
 app.get('/', function (req, res) {

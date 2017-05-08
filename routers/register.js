@@ -4,6 +4,7 @@ var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/products';
 var crypto = require('crypto');
 var md5sum = crypto.createHash('md5');
+
 module.exports =function(app) {
     app.post('/register', function (req, res) {
         var username = req.body.login;
