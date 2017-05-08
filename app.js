@@ -21,8 +21,12 @@ app.set("view engine", "pug");
 app.use(logger("dev"));   //midlewearstack
 app.set('view engine', 'pug')
 app.use(bodyParser.urlencoded({ extended: false }));  //odkodowuje formularz
+var fileUpload = require('express-fileupload');
+app.use(fileUpload());
 require('./routers/register.js')(app);
 require('./routers/login.js')(app);
+require('./routers/product.js')(app);
+
 
 
 app.get('/', function (req, res) {
