@@ -11,29 +11,49 @@ module.exports =function(app) {
     });
 
     app.post('/product', function(req, res) {
-        console.log(req.body.description)
+        var id;
+        var string;
+        console.log("alo");
+        console.log(req.body.description);
         if (!req.files)
             return res.status(400).send('No files were uploaded.');
 
-        sampleFile = req.files.file;
-
+        var insertDocument = function (db,callback) {
+            console.log("widze id");
+            console.log(id);
+            db.collection('products').insertOne({"id": id, "description": req.body.description,"path": string}, function (err, result) {
+                assert.equal(err, null);
+                res.status(500).send("Plik został dodany");
+                callback();
+            });
+        };
         var addFile= function(db,callback) {
-            db.collection('products').find().count(function (e, count) {
-                var id = count+1;
-                sampleFile.mv('./image/image1.png', function(err) {
+            console.log("adfile");
+            sampleFile = req.files.file;
+                id = Date.now();
+                console.log("id"+id);
+                string= "".concat("./image/", id.toString(), ".jpg");
+                console.log(string);
+                sampleFile.mv(string, function (err) {
                     if (err)
                         return res.status(500).send(err);
+                    callback();
 
-                    res.send('File uploaded!');
-        });
+                });
+        };
 
         MongoClient.connect(url, function (err, db) {
             assert.equal(null, err);
-            searchLogin(db,function() {
-                db.close();
+            addFile(db,function() {
+                insertDocument(db,function(){
+                    db.close();
+                    res.redirect("panel");
+                });
+
             });
         });
 
     });
+
 
 }

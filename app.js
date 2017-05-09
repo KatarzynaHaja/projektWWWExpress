@@ -28,6 +28,7 @@ require('./routers/login.js')(app);
 require('./routers/product.js')(app);
 require('./routers/deleteuser.js')(app);
 require('./routers/addrights.js')(app);
+require('./routers/showproduct.js')(app);
 
 
 app.get('/', function (req, res) {
@@ -62,7 +63,21 @@ app.get('/user', function (req, res) {
     }
     else
     {
-        res.render('user',{variable:req.session.role});
+        var products = function(db,callback) {
+            db.collection('products').find().toArray(function (err, results) {
+                return callback(results);
+            });
+
+        };
+        MongoClient.connect(url, function (err, db) {
+            assert.equal(null, err);
+            products(db,function(array) {
+                db.close();
+                console.log(array);
+                res.render("user", {variable:req.session.role, form: array});
+            });
+        });
+
     }
 
 });

@@ -7,6 +7,14 @@ block content
             if variable == 'admin'
                 p
                     a(href='/panel') Panel administratora
+
+        div.panel_default
+            div.col-sm-8.col-sm-offset-4
+                each val in form
+                    div.panel_heading
+                        a(href='showproduct')=val.id
+                    div.panel-body= val.description
+
         block form
             form.login-form.form-horizontal(method='post', role='form')
                 input(name='_csrf', type='hidden', value=csrfToken)
@@ -14,4 +22,5 @@ block content
                     div.row
                         div.col-sm-8.col-sm-offset-5
                             button.login.btn.btn-primary(type='submit') Wyloguj się
+
 

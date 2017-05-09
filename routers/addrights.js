@@ -21,7 +21,7 @@ module.exports =function(app) {
 
     });
     app.post('/addrights', function(req, res){
-        var deleteUsers = function(db,callback) {
+        var addRights = function(db,callback) {
             if(req.body.user){
                 if(Array.isArray(req.body.user)){
                     for(var i=0; i< req.body.user.length; i++){
@@ -35,7 +35,7 @@ module.exports =function(app) {
         };
         MongoClient.connect(url, function (err, db) {
             assert.equal(null, err);
-            deleteUsers(db,function() {
+            addRights(db,function() {
                 db.close();
             });
         });
