@@ -15,15 +15,25 @@ module.exports =function(app) {
         if (!req.files)
             return res.status(400).send('No files were uploaded.');
 
-        // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
         sampleFile = req.files.file;
 
-        // Use the mv() method to place the file somewhere on your server
-        sampleFile.mv('./image/image1.png', function(err) {
-            if (err)
-                return res.status(500).send(err);
+        var addFile= function(db,callback) {
+            db.collection('products').find().count(function (e, count) {
+                var id = count+1;
+                sampleFile.mv('./image/image1.png', function(err) {
+                    if (err)
+                        return res.status(500).send(err);
 
-            res.send('File uploaded!');
+                    res.send('File uploaded!');
         });
+
+        MongoClient.connect(url, function (err, db) {
+            assert.equal(null, err);
+            searchLogin(db,function() {
+                db.close();
+            });
+        });
+
     });
+
 }
