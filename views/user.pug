@@ -12,7 +12,7 @@ block content
             div.col-sm-8.col-sm-offset-4
                 each val in form
                     div.panel_heading
-                        a(href='showproduct')=val.id
+                        a(href='showproduct/'+val.id)=val.id
                     div.panel-body= val.description
 
         block form

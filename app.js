@@ -29,6 +29,7 @@ require('./routers/product.js')(app);
 require('./routers/deleteuser.js')(app);
 require('./routers/addrights.js')(app);
 require('./routers/showproduct.js')(app);
+require('./routers/comment.js')(app);
 
 
 app.get('/', function (req, res) {

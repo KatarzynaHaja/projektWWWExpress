@@ -1,2 +1,11 @@
+extend layout.pug
 
+block content
+    div.container
+        div.panel_default
+            div.panel_heading= product.id
+            div.panel-body= product.description
+                a(href='/comment/'+product.id) Dodaj komentarz
+
+        block comments
 
