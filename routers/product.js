@@ -7,7 +7,23 @@ var url = 'mongodb://localhost:27017/products';
 
 module.exports =function(app) {
     app.get('/product', function (req, res) {
-        res.render('product');
+        console.log(req.session.role)
+        if (req.session.role == undefined)
+        {
+            res.render('401');
+        }
+        else
+        {
+            if(req.session.role =='user')
+            {
+                res.render('403');
+            }
+            else
+            {
+                res.render('panel');
+            }
+        }
+
     });
 
     app.post('/product', function(req, res) {

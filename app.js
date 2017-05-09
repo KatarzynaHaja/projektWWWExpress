@@ -31,24 +31,25 @@ require('./routers/addrights.js')(app);
 require('./routers/showproduct.js')(app);
 require('./routers/comment.js')(app);
 
+function authorization()
+{
 
+}
 app.get('/', function (req, res) {
     res.render('main');
 });
 
-app.get('/product', function (req, res) {
-    res.render('product');
-});
+
 app.get('/panel', function (req, res) {
     if (req.session.role == undefined)
     {
-        res.status(401).send("Nie jesteś zalogowany")
+        res.render('401');
     }
     else
     {
         if(req.session.role =='user')
         {
-            res.status(403).send("Nie masz uprawnień")
+            res.render('403');
         }
         else
         {
@@ -92,6 +93,10 @@ app.post('/user',function(req,res)
 
 app.use(function(req, res) {
     res.status(404).render("404");
+});
+
+app.use(function(req, res) {
+    res.status(403).render("403");
 });
 
 
