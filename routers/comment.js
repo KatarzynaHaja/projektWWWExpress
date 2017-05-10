@@ -6,7 +6,6 @@ var crypto = require('crypto');
 
 module.exports =function(app) {
     app.get('/comment/:id', function (req, res) {
-        console.log("alo");
         if (req.session.role == undefined)
         {
             res.status(401).send("Nie jesteś zalogowany")
@@ -15,7 +14,29 @@ module.exports =function(app) {
             res.render("new_comment", {id: req.params.id})
         };
     });
-    app.post('/new_comment', function(req, res){
-        
+    app.post('/comment/:id', function(req, res){
+        if (req.session.role == undefined)
+        {
+            res.status(401).send("Nie jesteś zalogowany")
+        }
+        else {
+            var insertDocument = function (db,callback) {
+                var productId = req.params.id;
+                db.collection('comments').insertOne({"id": Date.now(), "productId": productId, "comment": req.body.body,
+                    "user": req.session.username, "time": new Date()}, function (err, result) {
+                    assert.equal(err, null);
+                    callback();
+                });
+            };
+            MongoClient.connect(url, function (err, db) {
+                assert.equal(null, err);
+                insertDocument(db,function(){
+                    db.close();
+                    res.redirect("/showproduct/"+req.params.id);
+                });
+
+
+            });
+        };
     })
 }

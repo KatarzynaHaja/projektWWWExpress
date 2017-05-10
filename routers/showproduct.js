@@ -15,17 +15,28 @@ module.exports =function(app) {
                 var id = req.params.id;
                 console.log(id);
                 db.collection('products').find({"id": parseInt(id, 10)}).toArray(function (err, results) {
+                    console.log("produkt");
                     console.log(results);
                     return callback(results);
                 });
 
             };
+            var findComments = function(db, callback){
+                var id = req.params.id;
+                db.collection('comments').find({"productId": id}).toArray(function(err, results){
+                    console.log("komentarze");
+                    console.log(results);
+                    return callback(results);
+                })
+            };
             MongoClient.connect(url, function (err, db) {
                 assert.equal(null, err);
                 products(db,function(array) {
-                    db.close();
-                    console.log(array);
-                    res.render("show_product", {product: array[0]});
+                    findComments(db, function(c){
+                        db.close();
+                        res.render("show_product", {product: array[0], comments: c});
+                    });
+
                 });
             });
 

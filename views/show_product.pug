@@ -6,6 +6,15 @@ block content
             div.panel_heading= product.id
             div.panel-body= product.description
                 a(href='/comment/'+product.id) Dodaj komentarz
+                h3 Komentarze
+    div.container
+        div.panel_default
+            if comments.length == 0
+                div.panel-body Brak komentarzy
+            else
+                each comment in comments
+                    div.panel_heading= comment.user + comment.time
+                    div.panel-body= comment.comment
+    a(href='/user') Powrót do strony głównej
 
-        block comments
 
