@@ -110,10 +110,12 @@ module.exports =function(app) {
                         console.log("usuwam")
                         db.collection('products').findOneAndDelete({"id": parseInt(req.body.id, 10)});
                         db.collection('comments').deleteMany({"productId": req.body.id});
+                        db.collection('marks').deleteMany({"productId": req.body.id});
                     }
                 }else{
                     db.collection('products').findOneAndDelete({"id": parseInt(req.body.id, 10)});
                     db.collection('comments').deleteMany({"productId": req.body.id});
+                    db.collection('marks').deleteMany({"productId": req.body.id});
                 }
             }
             res.redirect("/panel");
