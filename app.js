@@ -30,6 +30,7 @@ require('./routers/deleteuser.js')(app);
 require('./routers/addrights.js')(app);
 require('./routers/showproduct.js')(app);
 require('./routers/comment.js')(app);
+require('./routers/mark.js')(app);
 
 function authorization()
 {

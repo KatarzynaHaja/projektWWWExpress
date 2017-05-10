@@ -20,7 +20,7 @@ module.exports =function(app) {
             }
             else
             {
-                res.render('panel');
+                res.render('product');
             }
         }
 
@@ -37,9 +37,10 @@ module.exports =function(app) {
         var insertDocument = function (db,callback) {
             console.log("widze id");
             console.log(id);
-            db.collection('products').insertOne({"id": id, "description": req.body.description,"path": string}, function (err, result) {
+            db.collection('products').insertOne({"id": id, "name": req.body.product_name,
+                "description": req.body.description,"path": string, "marks": 0, "users": 0}, function (err, result) {
                 assert.equal(err, null);
-                res.status(500).send("Plik został dodany");
+                //res.status(500).send("Plik został dodany");
                 callback();
             });
         };
@@ -63,13 +64,66 @@ module.exports =function(app) {
             addFile(db,function() {
                 insertDocument(db,function(){
                     db.close();
-                    res.redirect("panel");
+                    res.redirect("/panel");
                 });
 
             });
         });
 
     });
+    app.get('/deleteproduct', function(req, res){
+        if (req.session.role == undefined)
+        {
+            res.render('401');
+        }
+        else
+        {
+            if(req.session.role =='user')
+            {
+                res.render('403');
+            }
+            else
+            {
+                var searchProducts = function(db,callback) {
+                    db.collection('products').find().toArray(function (err, results) {
+                        return callback(results);
+                    });
 
+                };
+                MongoClient.connect(url, function (err, db) {
+                    assert.equal(null, err);
+                    searchProducts(db,function(array) {
+                        db.close();
+                        res.render("delete_products", {form: array});
+                    });
+                });
+
+            }
+        }
+
+    });
+    app.post('/deleteproduct', function(req, res){
+        var deleteProducts = function(db,callback) {
+            if(req.body.id){
+                if(Array.isArray(req.body.id)){
+                    for(var i=0; i< req.body.id.length; i++){
+                        console.log("usuwam")
+                        db.collection('products').findOneAndDelete({"id": parseInt(req.body.id, 10)});
+                        db.collection('comments').deleteMany({"productId": req.body.id});
+                    }
+                }else{
+                    db.collection('products').findOneAndDelete({"id": parseInt(req.body.id, 10)});
+                    db.collection('comments').deleteMany({"productId": req.body.id});
+                }
+            }
+            res.redirect("/panel");
+        };
+        MongoClient.connect(url, function (err, db) {
+            assert.equal(null, err);
+            deleteProducts(db,function() {
+                db.close();
+            });
+        });
+    });
 
 }

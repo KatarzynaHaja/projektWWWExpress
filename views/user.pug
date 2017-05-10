@@ -1,4 +1,5 @@
-extends layout
+extends layout.pug
+
 block content
     div.container
         div.col-sm-8.col-sm-offset-4
@@ -12,7 +13,7 @@ block content
             div.col-sm-8.col-sm-offset-4
                 each val in form
                     div.panel_heading
-                        a(href='showproduct/'+val.id)=val.id
+                        a(href='showproduct/'+val.id)=val.name
                     div.panel-body= val.description
 
         block form

@@ -3,10 +3,16 @@ extend layout.pug
 block content
     div.container
         div.panel_default
-            div.panel_heading= product.id
-            div.panel-body= product.description
-                a(href='/comment/'+product.id) Dodaj komentarz
-                h3 Komentarze
+            div.panel_heading= product.name
+            div.panel_body= product.description
+            h4 Ocena:
+            if product.users == 0
+                div.panel_body 0
+            else
+                div.panel_body= product.marks/product.users
+            a(href='/comment/'+product.id) Dodaj komentarz
+            a(href='/mark/'+product.id) Dodaj ocenę
+            h3 Komentarze
     div.container
         div.panel_default
             if comments.length == 0

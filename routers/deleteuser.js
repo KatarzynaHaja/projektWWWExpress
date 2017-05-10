@@ -5,19 +5,34 @@ var assert = require('assert');
 
 module.exports =function(app) {
     app.get('/deleteuser', function(req, res){
-        var searchUsers = function(db,callback) {
-            db.collection('users').find({"role": "user"}).toArray(function (err, results) {
-                return callback(results);
-            });
+        if (req.session.role == undefined)
+        {
+            res.render('401');
+        }
+        else
+        {
+            if(req.session.role =='user')
+            {
+                res.render('403');
+            }
+            else
+            {
+                var searchUsers = function(db,callback) {
+                    db.collection('users').find({"role": "user"}).toArray(function (err, results) {
+                        return callback(results);
+                    });
 
-        };
-        MongoClient.connect(url, function (err, db) {
-            assert.equal(null, err);
-            searchUsers(db,function(array) {
-                db.close();
-                res.render("delete_user", {form: array});
-            });
-        });
+                };
+                MongoClient.connect(url, function (err, db) {
+                    assert.equal(null, err);
+                    searchUsers(db,function(array) {
+                        db.close();
+                        res.render("delete_user", {form: array});
+                    });
+                });
+
+            }
+        }
 
 
     });

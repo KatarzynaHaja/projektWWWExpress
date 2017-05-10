@@ -1,0 +1,19 @@
+extend layout.pug
+
+block content
+    div.container.col-sm-6.col-sm-offset-4
+        h2 Dodaj ocenę
+
+        form.login-form.form-horizontal(method='post', role='form')
+            div.form-group
+                label Ocena
+                select.multiple(name="marks")
+                    option(value=1) 1
+                    option(value=2) 2
+                    option(value=3) 3
+                    option(value=4) 4
+                    option(value=5) 5
+
+            div.form-group
+                input(type="submit" value="Dodaj ocenę" class="btn btn-primary")
+
