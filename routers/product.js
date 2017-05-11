@@ -29,6 +29,7 @@ module.exports =function(app) {
     app.post('/product', function(req, res) {
         var id;
         var string;
+        var string2;
         console.log("alo");
         console.log(req.body.description);
         if (!req.files)
@@ -36,9 +37,9 @@ module.exports =function(app) {
 
         var insertDocument = function (db,callback) {
             console.log("widze id");
-            console.log(id);
+            console.log(string2);
             db.collection('products').insertOne({"id": id, "name": req.body.product_name,
-                "description": req.body.description,"path": string, "marks": 0, "users": 0}, function (err, result) {
+                "description": req.body.description,"path": string2, "marks": 0, "users": 0}, function (err, result) {
                 assert.equal(err, null);
                 //res.status(500).send("Plik został dodany");
                 callback();
@@ -50,6 +51,7 @@ module.exports =function(app) {
                 id = Date.now();
                 console.log("id"+id);
                 string= "".concat("./image/", id.toString(), ".jpg");
+                string2= "".concat("/", id.toString(), ".jpg");
                 console.log(string);
                 sampleFile.mv(string, function (err) {
                     if (err)
@@ -107,10 +109,10 @@ module.exports =function(app) {
             if(req.body.id){
                 if(Array.isArray(req.body.id)){
                     for(var i=0; i< req.body.id.length; i++){
-                        console.log("usuwam")
-                        db.collection('products').findOneAndDelete({"id": parseInt(req.body.id, 10)});
-                        db.collection('comments').deleteMany({"productId": req.body.id});
-                        db.collection('marks').deleteMany({"productId": req.body.id});
+                        console.log("usuwam" + req.body.id);
+                        db.collection('products').findOneAndDelete({"id": parseInt(req.body.id[i], 10)});
+                        db.collection('comments').deleteMany({"productId": req.body.id[i]});
+                        db.collection('marks').deleteMany({"productId": req.body.id[i]});
                     }
                 }else{
                     db.collection('products').findOneAndDelete({"id": parseInt(req.body.id, 10)});

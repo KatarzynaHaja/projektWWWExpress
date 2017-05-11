@@ -36,6 +36,9 @@ function authorization()
 {
 
 }
+
+app.use(express.static(__dirname + '/image'));
+
 app.get('/', function (req, res) {
     res.render('main');
 });

@@ -2,25 +2,35 @@ extend layout.pug
 
 block content
     div.container
-        div.panel_default
-            div.panel_heading= product.name
-            div.panel_body= product.description
-            h4 Ocena:
-            if product.users == 0
-                div.panel_body 0
-            else
-                div.panel_body= product.marks/product.users
-            a(href='/comment/'+product.id) Dodaj komentarz
-            a(href='/mark/'+product.id) Dodaj ocenę
+        div.col-sm-8.col-sm-offset-1
+            h2=product.name
+            h5
+                if product.users == 0
+                    div.panel_body Ocena: 0
+                else
+                    div.panel_body Ocena #{product.marks / product.users}
+            p
+                a(href='/mark/' + product.id) Dodaj ocenę
+            img(src=product.path)
+            h4 Opis
+            p=product.description
+
             h3 Komentarze
+            p
+                a(href='/comment/' + product.id) Dodaj komentarz
     div.container
         div.panel_default
-            if comments.length == 0
-                div.panel-body Brak komentarzy
-            else
-                each comment in comments
-                    div.panel_heading= comment.user + comment.time
-                    div.panel-body= comment.comment
-    a(href='/user') Powrót do strony głównej
+            div.col-sm-6.col-sm-offset-1
+                if comments.length == 0
+                    div.panel-body Brak komentarzy
+                else
+                    each comment in comments
+                        .panel.panel-default
+                            .panel-heading=comment.user
+                                .text-muted.pull-right=comment.time
+                            .panel-body=comment.comment
+
+        div.col-sm-6.col-sm-offset-1
+            a(href='/user') Powrót do strony głównej
 
 

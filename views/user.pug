@@ -4,24 +4,26 @@ block content
     div.container
         div.col-sm-8.col-sm-offset-4
             h1 Strona użytkownika
+                form.login-form.form-horizontal(method='post', role='form')
+                    input(name='_csrf', type='hidden', value=csrfToken)
+                    div.form-group
+                        div.row
+                            div.col-sm-10.col-sm-offset-8
+                                button.login.btn.btn-primary(type='submit') Wyloguj się
+
         div.col-sm-8.col-sm-offset-5
             if variable == 'admin'
                 p
                     a(href='/panel') Panel administratora
 
         div.panel_default
-            div.col-sm-8.col-sm-offset-4
+            div.col-sm-6.col-sm-offset-3
                 each val in form
-                    div.panel_heading
-                        a(href='showproduct/'+val.id)=val.name
-                    div.panel-body= val.description
+                    .panel.panel-default
+                        .panel-heading
+                            a(href='showproduct/'+val.id)=val.name
+                        .panel-body= val.description
 
-        block form
-            form.login-form.form-horizontal(method='post', role='form')
-                input(name='_csrf', type='hidden', value=csrfToken)
-                div.form-group
-                    div.row
-                        div.col-sm-8.col-sm-offset-5
-                            button.login.btn.btn-primary(type='submit') Wyloguj się
+
 
 
