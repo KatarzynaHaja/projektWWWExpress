@@ -3,14 +3,15 @@ block content
     div.container
         div.col-sm-8.col-sm-offset-4
             h2 Użytkownicy
-        form.login-form.form-horizontal(method='post', role='form')
+        form.form-horizontal(method='post', role='form')
             div.col-sm-8.col-sm-offset-4
                 div.form-group
                     div.row.align-item-start
                         each val in form
-                            li
-                                label= val.username
-                                    input(type="checkbox" name="user" value=val.username)
+                            div.checkbox.h4
+                                label=val.username
+                                input(type="checkbox" name="user" value=val.username)
+                            br
 
             block button
 

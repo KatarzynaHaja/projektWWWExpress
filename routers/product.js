@@ -2,7 +2,7 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/products';
-
+var fs = require('fs');
 
 
 module.exports =function(app) {
@@ -114,11 +114,25 @@ module.exports =function(app) {
                         db.collection('products').findOneAndDelete({"id": parseInt(req.body.id[i], 10)});
                         db.collection('comments').deleteMany({"productId": req.body.id[i]});
                         db.collection('marks').deleteMany({"productId": req.body.id[i]});
+                        fs.unlink("./image"+req.body.id[i],function(err)
+                        {
+                            if(err)
+                            {
+                                console.log("blad")
+                            }
+                        });
                     }
                 }else{
                     db.collection('products').findOneAndDelete({"id": parseInt(req.body.id, 10)});
                     db.collection('comments').deleteMany({"productId": req.body.id});
                     db.collection('marks').deleteMany({"productId": req.body.id});
+                    fs.unlink("./image/"+req.body.id+".jpg",function(err)
+                    {
+                        if(err)
+                        {
+                            console.log("blad")
+                        }
+                    });
                 }
             }
             res.redirect("/panel");
