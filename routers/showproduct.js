@@ -7,7 +7,7 @@ module.exports =function(app) {
     app.get('/showproduct/:id', function (req, res) {
         if (req.session.role == undefined)
         {
-            res.status(401).send("Nie jesteś zalogowany")
+            res.status(401).render("401");
         }
         else
         {

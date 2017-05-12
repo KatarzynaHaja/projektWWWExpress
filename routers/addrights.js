@@ -5,19 +5,34 @@ var assert = require('assert');
 
 module.exports =function(app) {
     app.get('/addrights', function(req, res){
-        var searchUsers = function(db,callback) {
-            db.collection('users').find({"role": "user"}).toArray(function (err, results) {
-                return callback(results);
-            });
+        if (req.session.role == undefined)
+        {
+            res.status(401).render("401");
+        }
+        else
+        {
+            if(req.session.role == 'user')
+            {
+                res.status(403).render("403");
+            }
+            else
+            {
+                var searchUsers = function(db,callback) {
+                    db.collection('users').find({"role": "user"}).toArray(function (err, results) {
+                        return callback(results);
+                    });
 
-        };
-        MongoClient.connect(url, function (err, db) {
-            assert.equal(null, err);
-            searchUsers(db,function(array) {
-                db.close();
-                res.render("add_rights", {form: array});
-            });
-        });
+                };
+                MongoClient.connect(url, function (err, db) {
+                    assert.equal(null, err);
+                    searchUsers(db,function(array) {
+                        db.close();
+                        res.render("add_rights", {form: array});
+                    });
+                });
+            }
+        }
+
 
     });
     app.post('/addrights', function(req, res){

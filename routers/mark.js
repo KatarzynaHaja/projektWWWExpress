@@ -7,7 +7,7 @@ module.exports =function(app) {
     app.get('/mark/:id', function (req, res) {
         if (req.session.role == undefined)
         {
-            res.status(401).send("Nie jesteś zalogowany")
+            res.status(401).render("401");
         }
         else {
             res.render("mark", {id: req.params.id})
@@ -16,7 +16,7 @@ module.exports =function(app) {
     app.post('/mark/:id', function(req, res){
         if (req.session.role == undefined)
         {
-            res.status(401).send("Nie jesteś zalogowany")
+            res.status(401).render("401");
         }
         else {
             var insertDocument = function (db,callback) {

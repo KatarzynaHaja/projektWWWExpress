@@ -32,10 +32,7 @@ require('./routers/showproduct.js')(app);
 require('./routers/comment.js')(app);
 require('./routers/mark.js')(app);
 
-function authorization()
-{
 
-}
 
 app.use(express.static(__dirname + '/image'));
 
@@ -101,6 +98,10 @@ app.use(function(req, res) {
 
 app.use(function(req, res) {
     res.status(403).render("403");
+});
+
+app.use(function(req, res) {
+    res.status(401).render("401");
 });
 
 

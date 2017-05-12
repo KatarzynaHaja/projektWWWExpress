@@ -7,13 +7,13 @@ module.exports =function(app) {
     app.get('/deleteuser', function(req, res){
         if (req.session.role == undefined)
         {
-            res.render('401');
+            res.status(401).render("401");
         }
         else
         {
             if(req.session.role =='user')
             {
-                res.render('403');
+                res.status(403).render("403");
             }
             else
             {
